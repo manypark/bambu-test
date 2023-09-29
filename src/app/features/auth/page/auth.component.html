@@ -1,0 +1,63 @@
+<div class="wid-full grid place-items-center p-4 sm:p-40">
+
+    <div class="wid-full bg-white flex gap-x-8 shadow-lg rounded-2xl p-8 max-w-7xl">
+
+        <div class="w-1/2 rounded-lg image-container">
+            <!-- Image background -->
+            <div class="wid-full">
+                <img class="wid-full object-fill rounded-lg" src="assets/images/login-image.png" alt="image login">
+            </div>
+        </div>
+
+        <div class="form-container">
+
+            <div class="grid place-items-center wid-full">
+                <!-- <div class="flex justify-center place-items-center wid-full"> -->
+
+                <!-- Form Login -->
+                <form (ngSubmit)="submit($event)" autocomplete="off" novalidate [formGroup]="form" class="w-full grid max-w-sm gap-y-12">
+
+                    <div class="">
+                        <h1 class="text-5xl font-extrabold"> Inicio de sesión </h1>
+                        <p class="text-gray-400"> Bienvenido de vuelta!, Por favor inicia sesión en tu cuenta. </p>
+                    </div>
+
+                    <div class="grid gap-y-6">
+                        <div class="w-full">
+                            <mat-form-field class="w-full">
+                                <mat-label>Ingresa tu correo</mat-label>
+                                <input matInput placeholder="pat@example.com" formControlName="email" required>
+                                <mat-error *ngIf="emailError && form.touched">Formato de correo incorrecto </mat-error>
+                                <mat-error *ngIf="emailErrorRequired && form.touched">Correo requerido </mat-error>
+                            </mat-form-field>
+                        </div>
+    
+                        <div class="w-full">
+                            <mat-form-field class="w-full">
+                                <mat-label>Ingresa tu contraseña</mat-label>
+                                <input matInput placeholder="123qwer" formControlName="password" required>
+                                <mat-error *ngIf="passwordRequired && form.touched"> Contraseña requerida </mat-error>
+                                <mat-error *ngIf="passwordMinlength && form.touched"> Debe de contener al menos 6 caracterez </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <button type="submit" class="w-full text-white shadow-xl h-16 rounded-full bg-gray-800">
+                            <span class="text-2xl"> Iniciar sesión </span>
+                        </button>
+                    </div>
+
+                    <div class="w-full flex items-center gap-x-4">
+                        <span> Aún no tienes cuenta ? </span> 
+                        <a mat-button [routerLink]="['/register']"> Registrate </a>
+                    </div>
+                      
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
