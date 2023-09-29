@@ -27,9 +27,9 @@
                         <!-- Name -->
                         <div class="w-full">
                             <mat-form-field class="w-full animate-fade-down animate-once animate-duration-[1400ms] animate-ease-in-out">
-                                <mat-label>Ingresa tu nombre</mat-label>
+                                <mat-label>Ingresa tu nombre completo</mat-label>
                                 <input matInput placeholder="Juan Pablo" formControlName="name" required>
-                                <mat-error *ngIf="emailErrorRequired && form.touched">Nombre requerido </mat-error>
+                                <mat-error *ngIf="nameErrorRequired && form.touched">Nombre requerido </mat-error>
                             </mat-form-field>
                         </div>
 
@@ -38,7 +38,7 @@
                             <mat-form-field class="w-full animate-fade-down animate-once animate-duration-[1600ms] animate-ease-in-out">
                                 <mat-label>Fecha de cumpleaños</mat-label>
                                 <input matInput placeholder="18/03/2000" formControlName="birthDay" type="text" mask="d0/M0/0000" required>
-                                <mat-error *ngIf="emailErrorRequired && form.touched"> Fecha requerida </mat-error>
+                                <mat-error *ngIf="birthDayErrorRequired && form.touched"> Fecha requerida </mat-error>
                             </mat-form-field>
                         </div>
 
@@ -47,7 +47,7 @@
                             <mat-form-field class="w-full animate-fade-down animate-once animate-duration-[1800ms] animate-ease-in-out">
                                 <mat-label>Ingresa tu número telefónico</mat-label>
                                 <input type="text" matInput placeholder="452-123-1233" formControlName="phone" mask="000-000-0000" required>
-                                <mat-error *ngIf="emailErrorRequired && form.touched"> Número requerido </mat-error>
+                                <mat-error *ngIf="phoneErrorRequired && form.touched"> Número requerido </mat-error>
                             </mat-form-field>
                         </div>
 
@@ -65,7 +65,10 @@
                         <div class="w-full">
                             <mat-form-field class="w-full animate-fade-down animate-once animate-duration-[2200ms] animate-ease-in-out">
                                 <mat-label>Ingresa tu contraseña</mat-label>
-                                <input matInput placeholder="123qwer" formControlName="password" required>
+                                <input matInput placeholder="123qwer" formControlName="password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                                <button mat-icon-button matSuffix (click)="hide = !hide" >
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
                                 <mat-error *ngIf="passwordRequired && form.touched"> Contraseña requerida </mat-error>
                                 <mat-error *ngIf="passwordMinlength && form.touched"> Debe de contener al menos 6 caracterez </mat-error>
                             </mat-form-field>

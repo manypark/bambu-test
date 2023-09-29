@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -7,24 +7,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ToastService {
 
   constructor(
-    private readonly _snackBar: MatSnackBar,
+    private readonly toastr   : ToastrService,
   ) { }
 
   openSuccessSnakcBar( title?:string, subtitle?:string ) {
 
-    this._snackBar.open( title, subtitle ,{
-      duration          : 3000,
-      horizontalPosition: 'right',
-      verticalPosition  : 'top',
+    this.toastr.success(title, subtitle, {
+      timeOut     : 3000,
+      closeButton : true,
+      progressBar : true,
     });
+
   }
 
-  openErrorSnakcBar(  title?:string, subtitle?:string ) {
+  openErrorSnakcBar( title?:string, subtitle?:string ) {
 
-    this._snackBar.open( title, subtitle , {
-      duration          : 3000,
-      horizontalPosition: 'right',
-      verticalPosition  : 'top'
+    this.toastr.error(title, subtitle, {
+      timeOut     : 3000,
+      closeButton : true,
+      progressBar : true,
     });
 
   }

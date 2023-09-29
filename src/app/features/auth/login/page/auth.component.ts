@@ -1,10 +1,10 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { AuthForms } from '../forms/login-forms';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector    : 'app-auth',
@@ -23,7 +23,7 @@ export class AuthComponent {
     private readonly router       : Router,
   ) { }
 
-  submit( event:any ) {
+  submit( ev:any ) {
 
     this.form.markAsTouched();
 
@@ -35,7 +35,6 @@ export class AuthComponent {
 
   }
 
-   // Sign in with email/password
    SignIn(email: string, password: string) {
 
     this.afAuth.signInWithEmailAndPassword(email, password).then((result) => {
@@ -45,24 +44,15 @@ export class AuthComponent {
       if( user ) {
         localStorage.setItem('token', user.accessToken);
         this.toastServices.openSuccessSnakcBar( 'Ingreso correctamente', `Bienvenido ${user.email}`);
-
         this.router.navigate(['home']);
       }
 
     }).catch( err => {
-      console.log(err);
+      if( err.code == 'auth/invalid-login-credentials' ){
+        this.toastServices.openErrorSnakcBar( 'Error en credenciales', 'Verifica tu correo y contraseña');
+      }
     });
-    ;
 
-    // this.afAuth.authState.subscribe((user) => {});
-  }
-
-  get emailValue() {
-    return this.form.get('email')?.value;
-  }
-
-  get passwordValue() {
-    return this.form.get('password')?.value;
   }
 
   get passwordRequired() {

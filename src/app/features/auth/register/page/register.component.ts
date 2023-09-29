@@ -1,45 +1,85 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+
 import { RegisterForms } from '../forms/register-forms';
+import { User } from 'src/app/core/interfaces/user';
+import { ToastService } from 'src/app/shared/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector    : 'app-register',
+  templateUrl : './register.component.html',
+  styleUrls   : ['./register.component.scss']
 })
 export class RegisterComponent {
 
-  loading : boolean = false;
-  form    : FormGroup = new RegisterForms().buildForm(this.formBuilder);
+  hide  : boolean = true;
+  form  : FormGroup = new RegisterForms().buildForm(this.formBuilder);
 
   constructor(
-    // private readonly authServices: AuthService,
-    private readonly formBuilder : FormBuilder,
+    private readonly formBuilder  : FormBuilder,
+    private readonly afAuth       : AngularFireAuth,
+    private readonly afs          : AngularFirestore,
+    private readonly toastServices: ToastService,
+    private readonly router       : Router,
   ) { }
 
   submit( event:any ) {
 
     this.form.markAsTouched();
 
-    console.log(this.form.value);
-    
+    if( !this.form.valid ) return;
 
-    // this.loading = true;
+    const { email, password, name, birthDay, phone } = this.form.value;
 
-    // if( !this.form.valid ) return;
+    this.signUp(email, password, name, birthDay, phone);
+  }
 
-    // this.authServices.login( this.emailValue, this.passwordValue ).subscribe( res => {
-    //   this.loading = false;
-    // }, err => console.log(err) );
+  signUp( email:string, password:string, name:string, birthDay:string, phone:string  ) {
+
+    this.afAuth.createUserWithEmailAndPassword(email, password).then( res => {
+
+      const { user } = res.user.multiFactor as any;
+
+      const dataUser:User = {
+        name,
+        birthDay,
+        phone,
+        credentials: {
+          uid: user.uid,
+          email,
+          password
+        }
+      };
+
+      this.saveUserNew( dataUser );
+
+    }).catch( err => {
+      if( err.code == 'auth/email-already-in-use') {
+        this.toastServices.openErrorSnakcBar( 'Hubo un error', `El correo ya esta registrado`);
+      }
+    });
 
   }
 
-  get emailValue() {
-    return this.form.get('email')?.value;
-  }
+  saveUserNew( dataUser:User ) {
 
-  get passwordValue() {
-    return this.form.get('password')?.value;
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${dataUser.credentials.uid}`
+    );
+
+    userRef.set(dataUser, { merge: true }).then( res => {
+
+      if( res == undefined ) {
+        this.toastServices.openSuccessSnakcBar( 'Se registro correctamente', `Bienvenido ${dataUser.name}`);
+        this.router.navigate(['login']);
+      }
+
+    }).catch( err => {
+      console.log(err);
+    });
   }
 
   get passwordRequired() {
@@ -57,5 +97,18 @@ export class RegisterComponent {
   get emailErrorRequired() {
     return this.form.get('email')?.hasError('required');
   }
+
+  get nameErrorRequired() {
+    return this.form.get('name')?.hasError('required');
+  }
+
+  get birthDayErrorRequired() {
+    return this.form.get('birthDay')?.hasError('required');
+  }
+
+  get phoneErrorRequired() {
+    return this.form.get('phone')?.hasError('required');
+  }
+  
 
 }

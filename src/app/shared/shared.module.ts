@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { MaterialModule } from '../core/material/material.module';
 import { ToastService } from './services/toast.service';
 
@@ -10,7 +11,7 @@ import { ToastService } from './services/toast.service';
     MaterialModule,
   ],
   providers:[
-    ToastService
+    ToastService,
   ]
 })
 export class SharedModule { }
