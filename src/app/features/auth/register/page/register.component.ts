@@ -17,20 +17,6 @@ export class RegisterComponent {
     private readonly formBuilder : FormBuilder,
   ) { }
 
-  ngAfterViewInit(): void {
-    this.delayAnimToElement();
-  }
-
-  delayAnimToElement() {
-    const title = document.querySelector('h1');
-    title?.style.setProperty('--animate-duration', '600ms');
-
-    const subTitle = document.querySelector('h1');
-    subTitle?.style.setProperty('--animate-duration', '700ms');
-
-    
-  }
-
   submit( event:any ) {
 
     this.form.markAsTouched();

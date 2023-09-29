@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "bambu-test-b1b36"
+  },
+  "targets": {
+    "bambu-test-b1b36": {
+      "hosting": {
+        "bambu-test": [
+          "bambu-test-b1b36"
+        ]
+      }
+    }
+  }
+}
