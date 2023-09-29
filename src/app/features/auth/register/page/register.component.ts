@@ -35,6 +35,9 @@ export class RegisterComponent {
 
     this.form.markAsTouched();
 
+    console.log(this.form.value);
+    
+
     // this.loading = true;
 
     // if( !this.form.valid ) return;

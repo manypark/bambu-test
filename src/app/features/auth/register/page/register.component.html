@@ -18,13 +18,42 @@
                 <form (ngSubmit)="submit($event)" autocomplete="off" novalidate [formGroup]="form" class="w-full grid max-w-sm gap-y-12">
 
                     <div class="">
-                        <h1 class="text-5xl font-extrabold animate-fade-down animate-once animate-ease-in-out animate-duration-[1000ms]"> Inicio de sesión </h1>
-                        <p class="text-gray-400 animate-fade-down animate-once animate-ease-in-out animate-duration-[1200ms]"> Bienvenido de vuelta!, Por favor inicia sesión en tu cuenta. </p>
+                        <h1 class="text-5xl font-extrabold animate-fade-down animate-once animate-ease-in-out animate-duration-[1000ms]"> Registro </h1>
+                        <p class="text-gray-400 animate-fade-down animate-once animate-ease-in-out animate-duration-[1200ms]"> Bienvenido!, Por favor ingresa tus datos. </p>
                     </div>
 
                     <div class="grid gap-y-6">
+
+                        <!-- Name -->
                         <div class="w-full">
                             <mat-form-field class="w-full animate-fade-down animate-once animate-duration-[1400ms] animate-ease-in-out">
+                                <mat-label>Ingresa tu nombre</mat-label>
+                                <input matInput placeholder="Juan Pablo" formControlName="name" required>
+                                <mat-error *ngIf="emailErrorRequired && form.touched">Nombre requerido </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- BirthDay -->
+                        <div class="w-full">
+                            <mat-form-field class="w-full animate-fade-down animate-once animate-duration-[1600ms] animate-ease-in-out">
+                                <mat-label>Fecha de cumpleaños</mat-label>
+                                <input matInput placeholder="18/03/2000" formControlName="birthDay" type="text" mask="d0/M0/0000" required>
+                                <mat-error *ngIf="emailErrorRequired && form.touched"> Fecha requerida </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- phone -->
+                        <div class="w-full">
+                            <mat-form-field class="w-full animate-fade-down animate-once animate-duration-[1800ms] animate-ease-in-out">
+                                <mat-label>Ingresa tu número telefónico</mat-label>
+                                <input type="text" matInput placeholder="452-123-1233" formControlName="phone" mask="000-000-0000" required>
+                                <mat-error *ngIf="emailErrorRequired && form.touched"> Número requerido </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- email -->
+                        <div class="w-full">
+                            <mat-form-field class="w-full animate-fade-down animate-once animate-duration-[2000ms] animate-ease-in-out">
                                 <mat-label>Ingresa tu correo</mat-label>
                                 <input matInput placeholder="pat@example.com" formControlName="email" required>
                                 <mat-error *ngIf="emailError && form.touched">Formato de correo incorrecto </mat-error>
@@ -32,8 +61,9 @@
                             </mat-form-field>
                         </div>
     
+                        <!-- password -->
                         <div class="w-full">
-                            <mat-form-field class="w-full animate-fade-down animate-once animate-duration-[1600ms] animate-ease-in-out">
+                            <mat-form-field class="w-full animate-fade-down animate-once animate-duration-[2200ms] animate-ease-in-out">
                                 <mat-label>Ingresa tu contraseña</mat-label>
                                 <input matInput placeholder="123qwer" formControlName="password" required>
                                 <mat-error *ngIf="passwordRequired && form.touched"> Contraseña requerida </mat-error>
@@ -42,15 +72,15 @@
                         </div>
                     </div>
 
-                    <div class="animate-fade-down animate-once animate-duration-[1800ms] animate-ease-in-out">
+                    <div class="animate-fade-down animate-once animate-duration-[2400ms] animate-ease-in-out">
                         <button type="submit" class="w-full text-white shadow-xl h-16 rounded-full bg-gray-800">
-                            <span class="text-2xl"> Iniciar sesión </span>
+                            <span class="text-2xl"> Registrate </span>
                         </button>
                     </div>
 
-                    <div class="w-full flex items-center gap-x-4 animate-fade-down animate-once animate-duration-[2000ms] animate-ease-in-out">
-                        <span> Aún no tienes cuenta ? </span> 
-                        <a mat-button [routerLink]="['/register']"> Registrate </a>
+                    <div class="w-full flex items-center gap-x-4 animate-fade-down animate-once animate-duration-[2600ms] animate-ease-in-out">
+                        <span> Ya tienes cuenta ? </span> 
+                        <a mat-button [routerLink]="['/login']"> Inicia sesión </a>
                     </div>
                       
                 </form>
