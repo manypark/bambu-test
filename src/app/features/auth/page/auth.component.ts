@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AuthForms } from '../forms/auth-forms';
@@ -8,7 +8,7 @@ import { AuthForms } from '../forms/auth-forms';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent {
+export class AuthComponent implements AfterViewInit {
 
   loading : boolean = false;
   form    : FormGroup = new AuthForms().buildForm(this.formBuilder);
@@ -16,7 +16,20 @@ export class AuthComponent {
   constructor(
     // private readonly authServices: AuthService,
     private readonly formBuilder : FormBuilder,
-  ) {
+  ) { }
+
+  ngAfterViewInit(): void {
+    this.delayAnimToElement();
+  }
+
+  delayAnimToElement() {
+    const title = document.querySelector('h1');
+    title?.style.setProperty('--animate-duration', '600ms');
+
+    const subTitle = document.querySelector('h1');
+    subTitle?.style.setProperty('--animate-duration', '700ms');
+
+    
   }
 
   submit( event:any ) {
