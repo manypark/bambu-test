@@ -1,17 +1,16 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
-import { AuthForms } from '../forms/auth-forms';
+import { RegisterForms } from '../forms/register-forms';
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class AuthComponent implements AfterViewInit {
+export class RegisterComponent {
 
   loading : boolean = false;
-  form    : FormGroup = new AuthForms().buildForm(this.formBuilder);
+  form    : FormGroup = new RegisterForms().buildForm(this.formBuilder);
 
   constructor(
     // private readonly authServices: AuthService,
