@@ -1,10 +1,8 @@
-import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { AuthForms } from '../forms/login-forms';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { FirebaseService } from 'src/app/core/services/firebase/firebase.service';
 
 @Component({
   selector    : 'app-auth',
@@ -17,10 +15,8 @@ export class AuthComponent {
   form    : FormGroup = new AuthForms().buildForm(this.formBuilder);
 
   constructor(
-    private readonly formBuilder  : FormBuilder,
-    private readonly afAuth       : AngularFireAuth,
-    private readonly toastServices: ToastService,
-    private readonly router       : Router,
+    private readonly formBuilder    : FormBuilder,
+    public readonly firebaseServices : FirebaseService,
   ) { }
 
   submit( ev:any ) {
@@ -29,29 +25,9 @@ export class AuthComponent {
 
     if( !this.form.valid ) return;
 
-    const { email, password } = this.form.value
+    const { email, password } = this.form.value;
 
-    this.SignIn(email, password);
-
-  }
-
-   SignIn(email: string, password: string) {
-
-    this.afAuth.signInWithEmailAndPassword(email, password).then((result) => {
-
-      const { user } = result.user.multiFactor as any;
-
-      if( user ) {
-        localStorage.setItem('token', user.accessToken);
-        this.toastServices.openSuccessSnakcBar( 'Ingreso correctamente', `Bienvenido ${user.email}`);
-        this.router.navigate(['home']);
-      }
-
-    }).catch( err => {
-      if( err.code == 'auth/invalid-login-credentials' ){
-        this.toastServices.openErrorSnakcBar( 'Error en credenciales', 'Verifica tu correo y contraseña');
-      }
-    });
+    this.firebaseServices.SignIn(email, password);
 
   }
 

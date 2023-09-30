@@ -1,1 +1,21 @@
-<p>numbers works!</p>
+<div class="wid-full  px-20">
+
+    <div class="w-full flex place-items-center max-w-7xl mt-10 gap-x-4">
+        
+        <mat-form-field class="w-1/2">
+            <mat-label> Ingresa números </mat-label>
+            <input [(ngModel)]="numbers" matInput type="text" [disabled]="isLoading">
+        </mat-form-field>
+        
+        <button mat-raised-button color="primary" (click)="counterNumberAndOrderDesc()"> Procesar números </button>
+        
+    </div>
+
+    <div *ngIf="numRepeat" class="w-full bg-white shadow-xl rounded-2xl p-12">
+        <p class="text-3xl"> Número - Frecuencia </p>
+        <p class="text-2xl" *ngFor="let item of numRepeat">
+            {{ item[0] }} - {{ item[1] }}
+        </p>
+    </div>
+
+</div>

@@ -6,6 +6,7 @@ import { MaterialModule } from 'src/app/core/material/material.module';
 import { HomeComponent } from './home.component';
 import { PokemonsComponent } from './components/pokemons/pokemons.component';
 import { NumbersComponent } from './components/numbers/numbers.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NumbersComponent } from './components/numbers/numbers.component';
   imports: [
     CommonModule,
     HomeRoutingModule,
-
+    FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
   ]
 })

@@ -45,10 +45,12 @@
                         </div>
                     </div>
 
-                    <div class="animate-fade-down animate-once animate-duration-[1800ms] animate-ease-in-out">
+                    <div class="grid gap-y-4  animate-fade-down animate-once animate-duration-[1800ms] animate-ease-in-out">
                         <button type="submit" class="w-full text-white shadow-xl h-16 rounded-full bg-gray-800">
                             <span class="text-2xl"> Iniciar sesión </span>
                         </button>
+
+                        <mat-progress-bar *ngIf="firebaseServices.isLoading" mode="indeterminate" class="animate-fade-down animate-once animate-duration-[600ms] animate-ease-in-out"></mat-progress-bar>
                     </div>
 
                     <div class="w-full flex items-center gap-x-4 animate-fade-down animate-once animate-duration-[2000ms] animate-ease-in-out">
