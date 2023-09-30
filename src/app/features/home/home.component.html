@@ -1,1 +1,15 @@
-<p>home works!</p>
+<mat-toolbar color="primary">
+
+    <span> Manuel Maldonado </span>
+
+    <span class="example-spacer"></span>
+
+    <div class="flex gap-x-10">
+      <a mat-button [routerLink]="['/home/pokemons']"> Pokemons </a>
+      <a mat-button [routerLink]="['/home/numbers']"> Números </a>
+    </div>
+
+</mat-toolbar>
+
+
+<router-outlet></router-outlet>
