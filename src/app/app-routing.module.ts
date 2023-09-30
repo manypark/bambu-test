@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { loginGuard } from './core/guards/login.guard';
+import { loginResetGuard } from './core/guards/login-reset.guard';
 
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import( './features/auth/login/page/auth.module').then( m => m.AuthModule )
+    loadChildren: () => import( './features/auth/login/page/auth.module').then( m => m.AuthModule ),
+    canActivate : [loginResetGuard]
   },
   {
     path: 'register',
-    loadChildren: () => import( './features/auth/register/page/register.module').then( m => m.RegisterModule )
+    loadChildren: () => import( './features/auth/register/page/register.module').then( m => m.RegisterModule ),
+    canActivate : [loginResetGuard]
   },
   {
     path        : 'home',
